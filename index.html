@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nails Price List</title>
+    <script src="https://telegram.org"></script>
+    <style>
+        :root {
+            --bg-color: #fff5f7;
+            --card-bg: #ffffff;
+            --text-color: #4a3538;
+            --accent-pink: #ff8fa3;
+            --accent-dark-pink: #ff4d6d;
+            --border-color: #ffe3e8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 16px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        /* Нежная цветочная шапка */
+        .radar-container {
+            width: 80px;
+            height: 80px;
+            margin: 15px auto 10px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent-pink), #fff0f3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(255, 143, 163, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 26px;
+            margin: 0 0 4px 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-color);
+            font-family: 'Georgia', serif;
+            font-style: italic;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #8a7375;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* Бегущая строка в стиле студии */
+        .ticker-wrap {
+            width: 100%;
+            background: #ffe5ec;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+            padding: 6px 0;
+            margin-bottom: 20px;
+        }
+
+        .ticker {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: ticker 12s infinite linear;
+        }
+
+        .ticker-item {
+            display: inline-block;
+            padding: 0 1.5rem;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent-dark-pink);
+            letter-spacing: 1px;
+        }
+
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        .section-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #a38589;
+            margin: 0 0 12px 4px;
+            font-weight: 700;
+        }
+
+        /* Список услуг из карточки */
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(255, 143, 163, 0.05);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: linear-gradient(to bottom, var(--accent-pink), var(--accent-dark-pink));
+        }
+
+        .service-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-color);
+            text-transform: uppercase;
+        }
+
+        .service-desc {
+            font-size: 12px;
+            color: #8a7375;
+            margin-top: 4px;
+        }
+
+        .service-price {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--accent-dark-pink);
+            background: #fff0f3;
+            padding: 4px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        /* Блок записи */
+        .support-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(255, 143, 163, 0.05);
+        }
+
+        .support-text {
+            font-size: 13px;
+            color: #6e5659;
+            margin-bottom: 12px;
+        }
+
+        .btn-connect {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background: linear-gradient(90deg, var(--accent-pink) 0%, var(--accent-dark-pink) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(255, 77, 109, 0.2);
+            box-sizing: border-box;
+        }
+
+        .btn-connect:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="radar-container">
+            <div class="avatar">🌸</div>
+        </div>
+        <h1>Nails Price List</h1>
+        <p class="subtitle">Маникюр & Наращивание</p>
+    </div>
+
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span class="ticker-item">ФРЕНЧ</span>
+            <span class="ticker-item">СЛАЙДЕРЫ</span>
+            <span class="ticker-item">ФИГУРКИ</span>
+            <span class="ticker-item">ЧИСТЫЙ МАНИКЮР</span>
+        </div>
+    </div>
+
+    <div class="section-title">Прайс-лист студии</div>
+    
+    <div class="services-list">
+        <div class="service-card">
+            <div class="service-title-row">
+                <span class="service-title">Снятие чужой работы</span>
+                <span class="service-price">200 ₽</span>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-title-row">
+                <span class="service-title">Маникюр без покрытия</span>
+                <span class="service-price">300 ₽</span>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-title-row">
+                <div>
+                    <div class="service-title">Маникюр с покрытием</div>
+                    <div class="service-desc">маникюр + покрытие гель лак</div>
+                </div>
+                <span class="service-price">800 ₽</span>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-title-row">
+                <div>
+                    <div class="service-title">Наращивание ногтей</div>
+                    <div class="service-desc">средняя длина</div>
+                </div>
+                <span class="service-price">1000 ₽</span>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-title-row">
+                <div>
+                    <div class="service-title">Наращивание ногтей</div>
+                    <div class="service-desc">экстра длина</div>
+                </div>
+                <span class="service-price">1400 ₽</span>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-title-row">
+                <span class="service-title">Коррекция наращенных ногтей</span>
+                <span class="service-price">900 ₽</span>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-title-row">
+                <div>
+                    <div class="service-title">Дизайн</div>
+                    <div class="service-desc">френч / слайдеры / фигурки</div>
+                </div>
+                <span class="service-price">100 ₽ / 200 ₽</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="support-container">
+        <div class="support-text">Для записи пишите напрямую в Telegram мастеру:</div>
+        <a href="https://t.me" class="btn-connect" target="_blank">Написать @cwikys</a>
+    </div>
+
+</body>
+</html>
